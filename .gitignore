@@ -4,6 +4,8 @@ node_modules/
 # Logs
 logs/
 *.log
+ 
+config/config.env  
 
 # Dependency directories
 pids/
