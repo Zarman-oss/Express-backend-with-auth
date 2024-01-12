@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import bootcamps from './routes/bootcamps';
+import bootcamps from './routes/bootcamps.js';
 
 dotenv.config();
 
