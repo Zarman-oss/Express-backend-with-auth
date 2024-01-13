@@ -1,11 +1,17 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import bootcamps from './routes/bootcamps.js';
+import bootcamps from './routes/bootcamps.js'; 
+import logger from './middleware/logger.js';
 
 dotenv.config();
 
 // initialize express app
-const app = express();
+const app = express(); 
+
+
+
+app.use(logger);
+
 
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps);

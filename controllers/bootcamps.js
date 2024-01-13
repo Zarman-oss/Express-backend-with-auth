@@ -2,11 +2,12 @@
 // routes => GET/api/v1/bootcamps 
 // who can access this endpoint => Public
 
- getBootcamps = (req,res, next) =>{ 
+ const getBootcamps = (req,res, next) =>{ 
 
     res.status(200).json({
         success: true,
-        msg: 'Show all bootcamps'
+        msg: 'Show all bootcamps', 
+        
     });
 } 
 
@@ -14,7 +15,7 @@
 // routes => GET/api/v1/bootcamps/:id 
 // who can access this endpoint => Public
 
- getSingleBootcamps = (req,res, next) =>{  
+ const getBootcamp = (req,res, next) =>{  
     res.status(200).json({
         success: true, 
         msg: `Show bootcamp ${req.params.id}`
@@ -26,7 +27,7 @@
 // routes => POST/api/v1/bootcamps 
 // who can access this endpoint => Private
 
- createBootcamp = (req,res, next) =>{ 
+ const createBootcamp = (req,res, next) =>{ 
     res.status(200).json({
         success: true,
         msg: 'Create a new bootcamp'
@@ -37,7 +38,7 @@
 // routes => PUT/api/v1/bootcamps/:id 
 // who can access this endpoint => Private
 
- updateBootcamp = (req,res, next) =>{ 
+ const updateBootcamp = (req,res, next) =>{ 
     res.status(200).json({
         success: true,
         msg: `Update Bootcamp ${req.params.id}`
@@ -48,13 +49,13 @@
 // routes => DELETE/api/v1/bootcamps/:id
 // who can access this endpoint => Private
 
- createBootcamp = (req,res, next) =>{ 
+ const deleteBootcamp = (req,res, next) =>{ 
     res.status(200).json({
         success: true,
-        msg: 'Create a new bootcamp'
+        msg: 'Bootcamp deleted'
     });
 } 
  
 
-export { getBootcamps, getSingleBootcamp, createBootcamp, updateBootcamp, deleteBootcamp };
+export { getBootcamps, getBootcamp,createBootcamp, updateBootcamp, deleteBootcamp };
 
