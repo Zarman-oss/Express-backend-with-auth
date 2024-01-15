@@ -3,9 +3,14 @@ import { createBootcamp, deleteBootcamp, getBootcamp, getBootcamps, updateBootca
 
 const router = express.Router();
  
-router.route('/').get(getBootcamps).post(createBootcamp); 
+router.route('/') 
+.get(getBootcamps) 
+.post(createBootcamp); 
 
-router.route('/:id').get(getBootcamp).put(updateBootcamp).delete(deleteBootcamp);
+router.route('/:id') 
+.get(getBootcamp) 
+.put(updateBootcamp) 
+.delete(deleteBootcamp);
   
 
 
