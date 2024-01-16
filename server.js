@@ -1,9 +1,11 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
-import bootcamps from './routes/bootcamps.js';
+import bootcamps from './routes/bootcamps.js'; 
+import connectDB from './config/db.js';
 
-dotenv.config();
+dotenv.config(); 
+connectDB();
 
 // initialize express app
 const app = express(); 
