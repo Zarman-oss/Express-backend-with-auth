@@ -1,15 +1,13 @@
-// what this controller method does => get all bootcamps 
+ // what this controller method does => get all bootcamps 
 // routes => GET/api/v1/bootcamps 
 // who can access this endpoint => Public
-
- const getBootcamps = (req,res, next) =>{ 
-
+ const getBootcamps = (req, res) => {
     res.status(200).json({
         success: true,
-        msg: 'Show all bootcamps', 
-        
+        msg: 'Show all bootcamps',
     });
-} 
+};
+
 
 // what this controller method does => get a single bootcamp
 // routes => GET/api/v1/bootcamps/:id 
