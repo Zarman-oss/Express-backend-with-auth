@@ -12,8 +12,4 @@ router.route('/:id')
 .put(updateBootcamp) 
 .delete(deleteBootcamp);
   
-
-
-
-
 export default router;
