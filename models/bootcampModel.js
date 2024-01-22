@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const BootcampSchema = new mongoose.Schema({
+const bootcampSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please add a name'],
@@ -78,10 +78,25 @@ const BootcampSchema = new mongoose.Schema({
   },
   housing: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   jobAssistance: {
     type: Boolean,
     default: false,
   },
+  jobGuarantee: {
+    type: Boolean,
+    default: false,
+  },
+  acceptGi: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
+
+const Bootcamps = mongoose.model('Bootcamps', bootcampSchema);
+export default Bootcamps;
