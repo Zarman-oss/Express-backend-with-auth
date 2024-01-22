@@ -6,43 +6,44 @@ const bootcampSchema = new mongoose.Schema({
     required: [true, 'Please add a name'],
     unique: true,
     trim: true,
-    maxlength: [50, "Name can't be more than 50 characters"],
+    maxlength: [50, 'Name can not be more than 50 characters'],
   },
   slug: String,
   description: {
     type: String,
     required: [true, 'Please add a description'],
-    maxlength: [50, 'Name cant be more than 50 characters'],
+    maxlength: [500, 'Description can not be more than 500 characters'],
   },
   website: {
     type: String,
     match: [
-      /^https:\/\/\S+$/,
-      'Please enter a valid website URL starting with "https://"',
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      'Please use a valid URL with HTTP or HTTPS',
     ],
-  },
-  email: {
-    type: String,
-    match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
   },
   phone: {
     type: String,
     maxlength: [20, 'Phone number can not be longer than 20 characters'],
   },
-
+  email: {
+    type: String,
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Please add a valid email',
+    ],
+  },
   address: {
     type: String,
     required: [true, 'Please add an address'],
   },
   location: {
+    // GeoJSON Point
     type: {
       type: String,
       enum: ['Point'],
-      required: true,
     },
     coordinates: {
       type: [Number],
-      required: true,
       index: '2dsphere',
     },
     formattedAddress: String,
@@ -52,7 +53,8 @@ const bootcampSchema = new mongoose.Schema({
     zipcode: String,
     country: String,
   },
-  career: {
+  careers: {
+    // Array of strings
     type: [String],
     required: true,
     enum: [
@@ -66,12 +68,10 @@ const bootcampSchema = new mongoose.Schema({
   },
   averageRating: {
     type: Number,
-    min: [1, 'Rating must be least 1'],
+    min: [1, 'Rating must be at least 1'],
     max: [10, 'Rating must can not be more than 10'],
   },
-  averageCost: {
-    type: Number,
-  },
+  averageCost: Number,
   photo: {
     type: String,
     default: 'no-photo.jpg',
@@ -98,5 +98,5 @@ const bootcampSchema = new mongoose.Schema({
   },
 });
 
-const Bootcamps = mongoose.model('Bootcamps', bootcampSchema);
-export default Bootcamps;
+const Bootcamp = mongoose.model('Bootcamp', bootcampSchema);
+export default Bootcamp;

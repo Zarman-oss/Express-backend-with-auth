@@ -18,13 +18,13 @@
     "_id": "5d713a66ec8f2b88b8f830b8",
     "user": "5d7a514b5d2c12c7449be046",
     "name": "InnovateCode Bootcamp",
-    "description": "InnovateCode has a singular goal – to mold you into a standout developer or designer with a six-figure salary. We provide comprehensive training in both development and UI/UX.",
+    "description": "InnovateCode has a singular goal to mold you into a standout developer or designer with a six-figure salary. We provide comprehensive training in both development and UI/UX.",
     "website": "https://innovatecode.com",
     "phone": "(222) 222-2222",
     "email": "enroll@innovatecode.com",
     "address": "220 Pawtucket St, Lowell, MA 01854",
     "careers": ["Web Development", "UI/UX", "Mobile Development"],
-    "housing": false,
+    "housing": true,
     "jobAssistance": true,
     "jobGuarantee": false,
     "acceptGi": true
@@ -39,10 +39,10 @@
     "email": "enroll@codecrafters.com",
     "address": "85 South Prospect Street Burlington VT 05405",
     "careers": ["Web Development", "Data Science", "Business"],
-    "housing": false,
-    "jobAssistance": false,
+    "housing": true,
+    "jobAssistance": true,
     "jobGuarantee": false,
-    "acceptGi": false
+    "acceptGi": true
   },
   {
     "_id": "5d725a1b7b292f5f8ceff788",
@@ -59,9 +59,9 @@
       "Data Science",
       "Business"
     ],
-    "housing": false,
+    "housing": true,
     "jobAssistance": true,
-    "jobGuarantee": true,
+    "jobGuarantee": false,
     "acceptGi": true
   }
 ]
