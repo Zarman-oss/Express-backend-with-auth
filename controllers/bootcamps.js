@@ -5,17 +5,18 @@ import Bootcamp from '../models/bootcampModel.js';
  ** routes => GET/api/v1/bootcamps
  * ? who can access this endpoint => Public
  */
-const getBootcamps = (req, res) => { 
-  try { 
-    const bootcamps= await Bootcamp.find();
-    
-  } catch (error) {
-    
+const getBootcamps = async (req, res) => {
+  try {
+    const bootcamps = await Bootcamp.find();
+    res.status(200).json({
+      success: true,
+      data: bootcamps,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+    });
   }
-  res.status(200).json({
-    success: true,
-    msg: 'Show all bootcamps',
-  });
 };
 
 /**
@@ -24,11 +25,19 @@ const getBootcamps = (req, res) => {
  * ? who can access this endpoint => Public
  */
 
-const getBootcamp = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: `Show single bootcamp ${req.params.id}`,
-  });
+const getBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findById(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      data: bootcamp,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };
 /**
  * todo  => create new bootcamp
@@ -57,11 +66,18 @@ const createBootcamp = async (req, res, next) => {
  * ? who can access this endpoint => Public
  */
 
-const updateBootcamp = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: `Update Bootcamp ${req.params.id}`,
-  });
+const updateBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({ success: true, data: bootcamp });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };
 
 /**
@@ -70,11 +86,18 @@ const updateBootcamp = (req, res, next) => {
  * ? who can access this endpoint => Private
  */
 
-const deleteBootcamp = (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: 'Bootcamp deleted',
-  });
+const deleteBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({ success: true, data: bootcamp });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };
 
 export {
