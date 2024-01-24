@@ -98,5 +98,14 @@ const bootcampSchema = new mongoose.Schema({
   },
 });
 
+/**
+ * todo Create Bootcamp slug from the name
+ */
+
+bootcampSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
 const Bootcamp = mongoose.model('Bootcamp', bootcampSchema);
 export default Bootcamp;
