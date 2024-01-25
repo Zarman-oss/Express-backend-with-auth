@@ -6,6 +6,9 @@ import connectDB from './config/db.js';
 import colors from 'colors';
 
 const PORT = process.env.PORT || 5000;
+/**
+ * ? Load environment variables from .env file since I have my .env file in root
+ */
 dotenv.config();
 connectDB();
 

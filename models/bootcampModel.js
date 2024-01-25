@@ -110,10 +110,10 @@ bootcampSchema.pre('save', function (next) {
 /**
  * ? Geo code and location model
  */
-bootcampSchema.pre('save'),
-  function (next) {
-    next();
-  };
+// bootcampSchema.pre('save'),
+//   async function (next) {
+//     const loc = next();
+//   };
 
 const Bootcamp = mongoose.model('Bootcamp', bootcampSchema);
 export default Bootcamp;
