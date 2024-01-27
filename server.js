@@ -1,29 +1,28 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
-import bootcamps from './routes/bootcamps.js';
 import connectDB from './config/db.js';
-import colors from 'colors';
+import bootcamps from './routes/bootcamps.js';
 
 const PORT = process.env.PORT || 5000;
-/**
- * ? Load environment variables from .env file since I have my .env file in root
- */
+
+//? Load environment variables from .env file since I have my .env file in root
+
 dotenv.config();
 connectDB();
 
-// initialize express app
+//? initialize express app
 const app = express();
 
-// Body Parser
+//* Body Parser
 app.use(express.json());
 
-// Dev logging middleware
+//* Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Mount routers
+//* Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
 
 app.listen(PORT, () =>

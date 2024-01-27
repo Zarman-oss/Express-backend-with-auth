@@ -14,6 +14,7 @@ const bootcampData = [
     jobAssistance: true,
     jobGuarantee: false,
     acceptGi: true,
+    averageCost: 3000,
   },
   {
     _id: '5d713a66ec8f2b88b8f830b8',
@@ -30,6 +31,7 @@ const bootcampData = [
     jobAssistance: true,
     jobGuarantee: false,
     acceptGi: true,
+    averageCost: 5000,
   },
   {
     _id: '5d725a037b292f5f8ceff787',
@@ -46,6 +48,7 @@ const bootcampData = [
     jobAssistance: true,
     jobGuarantee: false,
     acceptGi: true,
+    averageCost: 7000,
   },
   {
     _id: '5d725a1b7b292f5f8ceff788',
@@ -67,6 +70,7 @@ const bootcampData = [
     jobAssistance: true,
     jobGuarantee: false,
     acceptGi: true,
+    averageCost: 10000,
   },
 ];
 
