@@ -1,4 +1,4 @@
-[
+const courseData = [
   {
     _id: '5d725a4a7b292f5f8ceff789',
     title: 'Advanced Frontend Development',
@@ -108,3 +108,5 @@
     user: '5c8a1d5b0190b214360dc032',
   },
 ];
+
+export default courseData;
