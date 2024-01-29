@@ -1,5 +1,6 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import Bootcamp from '../models/bootcampModel.js';
+// import ErrorResponse from '../utils/errorResponse.js';
 
 // todo => get all bootcamps
 //** routes => GET/api/v1/bootcamps
@@ -57,6 +58,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
   //! Pagination result
 
   const pagination = {};
+
   if (endIndex < total) {
     pagination.next = {
       page: page + 1,
@@ -65,17 +67,17 @@ const getBootcamps = asyncHandler(async (req, res) => {
   }
 
   if (startIndex > 0) {
-    pagination.pre = {
+    pagination.prev = {
       page: page - 1,
       limit,
     };
   }
 
   res.status(200).json({
+    pagination: pagination,
     success: true,
     count: bootcamps.length,
     data: bootcamps,
-    pagination: pagination,
   });
 });
 
@@ -86,11 +88,12 @@ const getBootcamps = asyncHandler(async (req, res) => {
 const getBootcamp = asyncHandler(async (req, res) => {
   const bootcamp = await Bootcamp.findById(req.params.id);
 
-  if (!bootcamp) {
-    return next(
-      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
-    );
-  }
+  // if (!bootcamp) {
+  //   return next(
+  //     new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+  //   );
+  // }
+
   res.status(200).json({
     success: true,
     data: bootcamp,
@@ -123,9 +126,7 @@ const updateBootcamp = asyncHandler(async (req, res) => {
   //! Makes sure bootcamp is there, so it won't alter something else
 
   if (!bootcamp) {
-    return next(
-      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
-    );
+    return res.status(400).json({ success: false });
   }
 
   res.status(200).json({
@@ -144,10 +145,9 @@ const deleteBootcamp = asyncHandler(async (req, res) => {
   //! Makes sure bootcamp is there, so it won't delete something else
 
   if (!bootcamp) {
-    return next(
-      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
-    );
+    return res.status(400).json({ success: false });
   }
+
   res.status(200).json({
     success: true,
     data: {},
