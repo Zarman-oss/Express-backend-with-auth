@@ -1,15 +1,30 @@
+import { populate } from 'dotenv';
 import asyncHandler from '../middleware/asyncHandler.js';
-import courseModel from '../models/courseModel.js';
+import Course from '../models/courseModel.js';
+
 //todo => get courses
 //** routes => GET/api/v1/bootcamps/courses
 //** routes => GET/api/v1/bootcamps/:bootcampId/courses
 //? who can access this endpoint => Public
+const getCourses = asyncHandler(async (req, res, next) => {
+  let query;
 
-const getBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamp.findById(req.params.id);
+  if (req.params.bootcampId) {
+    query = Course.find({ bootcamp: req.params.bootcampId });
+  } else {
+    query = Course.find().populate({
+      path: 'bootcamp',
+      select: 'name description',
+    });
+  }
+
+  const courses = await query;
 
   res.status(200).json({
     success: true,
-    data: bootcamp,
+    count: courses.length,
+    data: courses,
   });
 });
+
+export { getCourses };

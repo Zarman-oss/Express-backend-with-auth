@@ -1,3 +1,4 @@
+import { populate } from 'dotenv';
 import asyncHandler from '../middleware/asyncHandler.js';
 import Bootcamp from '../models/bootcampModel.js';
 // import ErrorResponse from '../utils/errorResponse.js';
@@ -28,7 +29,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
   );
 
   //! Finding resources
-  query = Bootcamp.find(JSON.parse(queryStr));
+  query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
 
   //! Select fields
   if (req.query.select) {
@@ -45,7 +46,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
 
   //! Pagination
   const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 25;
+  const limit = parseInt(req.query.limit, 10) || 10;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
   const total = await Bootcamp.countDocuments();
@@ -139,14 +140,16 @@ const updateBootcamp = asyncHandler(async (req, res) => {
 //** routes => DELETE/api/v1/bootcamps/:id
 //? who can access this endpoint => Private
 
-const deleteBootcamp = asyncHandler(async (req, res) => {
-  const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+const deleteBootcamp = asyncHandler(async (req, res, next) => {
+  const bootcamp = await Bootcamp.findById(req.params.id);
 
   //! Makes sure bootcamp is there, so it won't delete something else
 
   if (!bootcamp) {
     return res.status(400).json({ success: false });
   }
+
+  bootcamp.remove();
 
   res.status(200).json({
     success: true,
