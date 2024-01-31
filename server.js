@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 import connectDB from './config/db.js';
+import errorHandler from './middleware/error.js';
 import bootcamps from './routes/bootcamps.js';
 import courses from './routes/courses.js';
 
@@ -27,18 +28,12 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
 
+//? for better error response
+app.use(errorHandler);
+
 app.listen(PORT, () =>
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`.magenta
       .bold
   )
 );
-
-// //unhandled promise rejections
-// app.use((req, res, next) => {
-//     process.on('unhandledRejection', (reason, promise) => {
-//         console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-//         // You can log the error, send an email, or perform other error-handling tasks here
-//     });
-//     next();
-// });

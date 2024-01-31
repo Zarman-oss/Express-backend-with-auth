@@ -1,14 +1,17 @@
+import mongoose from 'mongoose';
 import asyncHandler from '../middleware/asyncHandler.js';
 import Course from '../models/courseModel.js';
+import ErrorResponse from '../utils/errorResponse.js';
 
-//todo => get courses
-//** routes => GET/api/v1/bootcamps/courses
-//** routes => GET/api/v1/bootcamps/:bootcampId/courses
-//? who can access this endpoint => Public
 const getCourses = asyncHandler(async (req, res, next) => {
   let query;
 
   if (req.params.bootcampId) {
+    // Validate if the bootcampId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.bootcampId)) {
+      return next(new ErrorResponse('Invalid Bootcamp ID', 400));
+    }
+
     query = Course.find({ bootcamp: req.params.bootcampId });
   } else {
     query = Course.find().populate({
@@ -18,6 +21,10 @@ const getCourses = asyncHandler(async (req, res, next) => {
   }
 
   const courses = await query;
+
+  if (!courses || courses.length === 0) {
+    return next(new ErrorResponse('No courses found', 404));
+  }
 
   res.status(200).json({
     success: true,

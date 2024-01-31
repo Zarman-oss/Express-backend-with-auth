@@ -1,4 +1,3 @@
-import { populate } from 'dotenv';
 import asyncHandler from '../middleware/asyncHandler.js';
 import Bootcamp from '../models/bootcampModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
@@ -89,11 +88,11 @@ const getBootcamps = asyncHandler(async (req, res) => {
 const getBootcamp = asyncHandler(async (req, res) => {
   const bootcamp = await Bootcamp.findById(req.params.id);
 
-  // if (!bootcamp) {
-  //   return next(
-  //     new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
-  //   );
-  // }
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+    );
+  }
 
   res.status(200).json({
     success: true,
@@ -118,16 +117,16 @@ const createBootcamp = asyncHandler(async (req, res) => {
 //** routes => PUT/api/v1/bootcamps/:id
 //? who can access this endpoint => Public
 
-const updateBootcamp = asyncHandler(async (req, res) => {
+const updateBootcamp = asyncHandler(async (req, res, next) => {
   const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
 
-  //! Makes sure bootcamp is there, so it won't alter something else
-
   if (!bootcamp) {
-    return res.status(400).json({ success: false });
+    return next(
+      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+    );
   }
 
   res.status(200).json({

@@ -12,8 +12,10 @@ const router = express.Router();
 
 router.route('/').get(getBootcamps).post(createBootcamp);
 
-//! Re-route into other routes
+//* Re-route into other routes
 router.use('/:bootcampId/courses', courseRouter);
+
+router.route('/').get(getBootcamps).post(createBootcamp);
 
 router
   .route('/:id')
