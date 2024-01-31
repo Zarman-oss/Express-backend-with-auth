@@ -1,7 +1,7 @@
 import { populate } from 'dotenv';
 import asyncHandler from '../middleware/asyncHandler.js';
 import Bootcamp from '../models/bootcampModel.js';
-// import ErrorResponse from '../utils/errorResponse.js';
+import ErrorResponse from '../utils/errorResponse.js';
 
 // todo => get all bootcamps
 //** routes => GET/api/v1/bootcamps
@@ -146,11 +146,12 @@ const deleteBootcamp = asyncHandler(async (req, res, next) => {
   //! Makes sure bootcamp is there, so it won't delete something else
 
   if (!bootcamp) {
-    return res.status(400).json({ success: false });
+    return next(
+      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 400)
+    );
   }
 
-  bootcamp.remove();
-
+  await bootcamp.deleteOne();
   res.status(200).json({
     success: true,
     data: {},
