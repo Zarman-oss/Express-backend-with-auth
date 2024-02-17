@@ -1,6 +1,6 @@
-# Bootcamp and Online Courses API
+# Learnify Pro API
 
-Welcome to the Bootcamp and Online Courses API! This API serves as the backend for a web application that helps users discover and explore various bootcamps and online courses. Whether you are a student looking to enhance your skills or a professional seeking to upskill, this API provides a centralized platform for accessing information about relevant programs.
+Welcome to the Learnify Pro API! This API serves as the backend for a web application that helps users discover and explore various bootcamps and online courses. Whether you are a student looking to enhance your skills or a professional seeking to upskill, this API provides a centralized platform for accessing information about relevant programs.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
