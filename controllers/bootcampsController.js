@@ -9,6 +9,7 @@ import ErrorResponse from '../utils/errorResponse.js';
 const getBootcamps = asyncHandler(async (req, res) => {
   let query;
   //?
+
   const reqQuery = { ...req.query };
 
   //? fields to exclude
@@ -35,7 +36,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
     const fields = req.query.select.split(',').join(' ');
     query = query.select(fields);
   }
-  //? sort
+  //? sort functionality
   if (req.query.sort) {
     const sortBy = req.query.sort.split(',').join(' ');
     query = query.sort(sortBy);
@@ -43,7 +44,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
     query = query.sort('-createdAt');
   }
 
-  //? Pagination
+  //! Pagination
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 10;
   const startIndex = (page - 1) * limit;
@@ -52,7 +53,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
 
   query = query.skip(startIndex).limit(limit);
 
-  //? Execute query
+  //* Execute query
   const bootcamps = await query;
 
   //? Pagination result
