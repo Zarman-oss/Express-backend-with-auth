@@ -9,33 +9,34 @@ import ErrorResponse from '../utils/errorResponse.js';
 const getBootcamps = asyncHandler(async (req, res) => {
   let query;
   //?
+
   const reqQuery = { ...req.query };
 
-  //! fields to exclude
+  //? fields to exclude
   const removeFields = ['select', 'sort', 'limit'];
 
-  //! Loop over removeFields and delete them from reqQuery
+  //? Loop over removeFields and delete them from reqQuery
 
   removeFields.forEach((param) => delete reqQuery[param]);
 
-  //! Create query string
+  //? Create query string
   let queryStr = JSON.stringify(reqQuery);
 
-  //! this is for filtering out greater than or less in mongo db documents
+  //? this is for filtering out greater than or less in mongo db documents
   queryStr = queryStr.replace(
     /\b(gt|gte|lt|lte|in)\b/g,
     (match) => `$${match}`
   );
 
-  //! Finding resources
+  //? Finding resources
   query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
 
-  //! Select fields
+  //? Select fields
   if (req.query.select) {
     const fields = req.query.select.split(',').join(' ');
     query = query.select(fields);
   }
-  //! sort
+  //? sort functionality
   if (req.query.sort) {
     const sortBy = req.query.sort.split(',').join(' ');
     query = query.sort(sortBy);
@@ -55,7 +56,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
   //* Execute query
   const bootcamps = await query;
 
-  //! Pagination result
+  //? Pagination result
 
   const pagination = {};
 
@@ -142,7 +143,7 @@ const updateBootcamp = asyncHandler(async (req, res, next) => {
 const deleteBootcamp = asyncHandler(async (req, res, next) => {
   const bootcamp = await Bootcamp.findById(req.params.id);
 
-  //! Makes sure bootcamp is there, so it won't delete something else
+  //? Makes sure bootcamp is there, so it won't delete something else
 
   if (!bootcamp) {
     return next(
