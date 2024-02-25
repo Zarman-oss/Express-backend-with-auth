@@ -5,7 +5,7 @@ import {
   getBootcamp,
   getBootcamps,
   updateBootcamp,
-} from '../controllers/bootcamps.js';
+} from '../controllers/bootcampsController.js';
 import courseRouter from '../routes/courses.js';
 
 const router = express.Router();
